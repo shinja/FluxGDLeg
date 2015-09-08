@@ -32,50 +32,10 @@ function checkAuth() {
 
         var authorizeDiv = document.getElementById( "authorize-div" );
         if ( authResult && !authResult.error ) {
+
             // Hide auth UI, then load client library.
-            authorizeDiv.style.display = "none";
             oauthToken = authResult.access_token;
-            // loadDriveApi();
-        } else {
-            // Show auth UI, allowing the user to initiate authorization by
-            // clicking authorize button.
-            authorizeDiv.style.display = "inline";
         }
-    }
-
-    /**
-    * Load Drive API client library.
-    */
-    function loadDriveApi() {
-        gapi.client.load( "drive", "v2", listFiles );
-    }
-
-    /**
-    * Print files.
-    */
-    function listFiles() {
-
-            //beautyleg folder id
-            // "folderId": "0Bx4eBpnOrFyLfmlRb2FaRktYME10S184Wk5UQTR4WWJsNnpCMkUzVDJzZW1QUWVOVnFfa1U",
-
-        var request = gapi.client.drive.files.list( {
-            "maxResults": 10,
-            "q": "title contains '0000'"
-        } );
-
-        request.execute( function( resp ) {
-            appendPre( "Files:" );
-            var files = resp.items;
-            console.log( files );
-            if ( files && files.length > 0 ) {
-                for ( var i = 0; i < files.length; i++ ) {
-                    var file = files[i];
-                    appendPre( file.title + " (" + file.id + ")" );
-                }
-            } else {
-                appendPre( "No files found." );
-            }
-        } );
     }
 
     /**
@@ -92,9 +52,14 @@ function checkAuth() {
 
     function onApiLoad() {
 
-        gapi.load('auth', {'callback': checkAuth});
-        // gapi.client.load( "drive", "v2", listFiles );
+        gapi.load( "auth", { "callback": checkAuth } );
+
         gapi.client.load( "drive", "v2", function() {
-            console.log("driver library loaded");
-        });
+
+            console.log( "driver library loaded" );
+            var fileref = document.createElement( "script" );
+            fileref.setAttribute( "type", "text/javascript" );
+            fileref.setAttribute( "src", "js/bundle.js" );
+            document.getElementsByTagName("head")[0].appendChild(fileref);
+        } );
     }
