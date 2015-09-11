@@ -56,10 +56,9 @@ function checkAuth() {
 
         gapi.client.load( "drive", "v2", function() {
 
-            console.log( "driver library loaded" );
             var fileref = document.createElement( "script" );
             fileref.setAttribute( "type", "text/javascript" );
-            fileref.setAttribute( "src", "js/bundle.js" );
+            fileref.setAttribute( "src", "js/bundle.min.js" );
             document.getElementsByTagName("head")[0].appendChild(fileref);
         } );
     }

@@ -55,7 +55,7 @@ var Album = React.createClass({
 
         var request = gapi.client.drive.files.list( {
             "maxResults": 1,
-            "q": "title contains 'beautyleg-" + this.props.album.get("no") + "-0000'"
+            "q": "title = 'beautyleg-" + this.props.album.get("no") + "-0000.jpg'"
         } );
 
         request.execute( function( resp ) {
